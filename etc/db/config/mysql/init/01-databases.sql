@@ -1,0 +1,4 @@
+--CREATE DATABASE IF NOT EXISTS `skeleton`;
+--
+--CREATE USER 'skeleton'@'%' IDENTIFIED BY 'password';
+--GRANT ALL PRIVILEGES ON skeleton.* TO 'skeleton'@'%';

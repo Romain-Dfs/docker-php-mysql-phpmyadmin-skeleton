@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  php-apache-environment:
+    container_name: php-apache-${APP_NAME}
+    build:
+      context: .
+      dockerfile: ./etc/dockerfiles/php-apache.dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - "8000:80"
+    env_file:
+      - .env
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: mysql-${APP_NAME}
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      # Extra configurations can be written in the 01.databases.sql and are launched at startup
+      # - ./etc/db/config/mysql/init/:/docker-entrypoint-initdb.d
+      # Allows to save the data locally
+      - ./etc/db/backup/mysql/:/var/lib/mysql
+
+  #phpmyadmin
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin-${APP_NAME}
+    ports:
+      - '8080:80'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      PMA_HOST: mysql
+      PMA_PORT: ${MYSQL_PORT}
+    depends_on:
+      - mysql
+
+
+
+
