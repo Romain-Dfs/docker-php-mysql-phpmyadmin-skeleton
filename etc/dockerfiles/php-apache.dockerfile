@@ -5,8 +5,6 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 EXPOSE 80
 WORKDIR /app
 
-
-
 # mysql pdo
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 

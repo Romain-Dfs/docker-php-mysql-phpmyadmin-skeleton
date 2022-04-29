@@ -16,7 +16,9 @@ services:
 
   mysql:
     container_name: mysql-${APP_NAME}
-    image: mysql:8.0
+    build:
+      context: .
+      dockerfile: ./etc/dockerfiles/mysql.dockerfile
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
