@@ -5,6 +5,8 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 EXPOSE 80
 WORKDIR /app
 
+
+
 # mysql pdo
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 
@@ -24,4 +26,9 @@ COPY etc/apache/apache.conf /etc/apache2/conf-available/z-app.conf
 
 RUN a2enmod rewrite remoteip && \
     a2enconf z-app
+
+RUN groupadd -g 2000 docker
+RUN useradd -m -u 2001 -g docker docker
+
+USER docker
 
