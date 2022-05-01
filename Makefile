@@ -1,5 +1,5 @@
 install:
-	docker-compose run --rm php-apache-environment composer install
+	docker-compose run --rm composer install
 
 start:
 	docker-compose up --build -d

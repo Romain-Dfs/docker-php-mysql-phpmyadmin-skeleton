@@ -13,7 +13,6 @@ services:
       - .env
     depends_on:
       - mysql
-    user: '0:0'
 
   mysql:
     container_name: mysql-${APP_NAME}
@@ -28,7 +27,6 @@ services:
       # - ./etc/db/config/mysql/init/:/docker-entrypoint-initdb.d
       # Allows to save the data locally
       - ./etc/db/backup/mysql/:/var/lib/mysql/
-    user: '0:0'
 
   #phpmyadmin
   phpmyadmin:
@@ -42,6 +40,12 @@ services:
       PMA_PORT: ${MYSQL_PORT}
     depends_on:
       - mysql
-    user: '0:0'
 
-
+  #composer
+  composer:
+    build:
+      context: etc/dockerfiles
+      dockerfile: composer.dockerfile
+    container_name: composer-${APP_NAME}
+    volumes:
+      - ./:/app
