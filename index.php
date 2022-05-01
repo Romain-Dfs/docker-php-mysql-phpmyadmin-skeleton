@@ -5,6 +5,7 @@ echo "Hello\n\n";
 $host = "mysql";
 $user = getenv('MYSQL_USER');
 $password = getenv('MYSQL_PASSWORD');
+
 $connect = new mysqli($host, $user, $password);
 
 if ( $connect->connect_error ) {

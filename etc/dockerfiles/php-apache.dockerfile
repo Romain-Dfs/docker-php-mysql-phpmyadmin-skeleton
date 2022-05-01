@@ -6,7 +6,7 @@ EXPOSE 80
 WORKDIR /app
 
 # mysql pdo
-RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+RUN docker-php-ext-install mysqli pdo_mysql pdo && docker-php-ext-enable mysqli
 
 # git, unzip & zip are for composer
 RUN apt-get update -qq && \
@@ -26,8 +26,8 @@ COPY etc/apache/apache.conf /etc/apache2/conf-available/z-app.conf
 RUN a2enmod rewrite remoteip && \
     a2enconf z-app
 
-RUN groupadd -g 1000 docker
-RUN useradd -u 1000 -g docker docker
+#RUN groupadd -g 1001 docker
+#RUN useradd -u 1001 -g docker docker
 
-USER docker
+#USER docker
 
